@@ -1,0 +1,19 @@
+# Arquivo CODEOWNERS
+
+# Define donos globais (para todo o repositório)
+*       @usuario1 @time-devs
+
+# Donos para arquivos de configuração
+*.yml   @devops-team
+*.json  @backend-team
+
+# Donos para pastas específicas
+/docs/              @time-documentacao
+/frontend/          @frontend-dev
+/backend/           @backend-leads
+
+# Dono para um arquivo específico
+README.md           @usuario2
+
+# Donos para testes
+/tests/             @qa-team @usuario3
