@@ -1,9 +1,6 @@
-name: build
+name: DockerImageScan
 on:
   push:
-    branches:
-      - main
-  pull_request:
 jobs:
   build:
     name: Build
