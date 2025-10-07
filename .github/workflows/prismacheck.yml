@@ -1,0 +1,26 @@
+name: Check Prisma Migrations
+
+on:
+  pull_request:
+
+
+jobs:
+  check-migrations:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+        with:
+          fetch-depth: 0  # Fetch full history for all branches to detect changes
+          ref: ${{ github.event.pull_request.head.sha }}  # Check out the current PR
+
+      - name: Check Prisma migrations
+        uses: /premieroctet/prisma-drop-migration-warning@v1.0.2
+
+        with:
+          main-branch: 'main'
+          path: 'prisma'
+          message: 'Potential drop detected in Prisma migration files.'
+          warning: true
