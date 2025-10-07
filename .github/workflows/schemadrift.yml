@@ -1,0 +1,47 @@
+name: Detect Schema Drift
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  detect-drift:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup Database (PostgreSQL)
+        uses: Harmon758/postgresql-action@v1
+        with:
+          postgresql version: '14'
+
+      - name: Push local schema to temporary DB
+        run: npx prisma db push
+
+      - name: Detect schema drift
+        run: |
+          npx prisma migrate diff \
+            --from-url "postgresql://postgres:postgres@localhost:5432/postgres" \
+            --to-schema-datamodel prisma/schema.prisma \
+            --script > drift.sql
+
+      - name: Check if drift detected
+        run: |
+          if [ -s drift.sql ]; then
+            echo "Schema drift detected:"
+            cat drift.sql
+            exit 1
+          else
+            echo "No drift detected."
+          fi
