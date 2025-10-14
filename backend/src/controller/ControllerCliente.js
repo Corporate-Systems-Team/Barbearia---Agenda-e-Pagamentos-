@@ -12,5 +12,17 @@ const readClientes = (callback) => {
         callback(err, rows);
     });
 }
+const deleteCliente = (id, callback) => {
+    const sql = `DELETE FROM CLIENTES WHERE id = ?`;
+    db.run(sql, [id], function (err) {
+        callback(err, {changes: this.changes});
+    });
+}
+const updateCliente = (id,nome,telefone,email, callback) => {
+    const sql = `UPDATE CLIENTES SET nome = ?, telefone = ?, email = ? WHERE id = ?`;
+    db.run(sql, [nome,telefone,email,id], function (err) {
+        callback(err, {changes: this.changes});
+    });
+}
 
-module.exports = {createCliente, readClientes};
+module.exports = {createCliente, readClientes, deleteCliente, updateCliente};
