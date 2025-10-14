@@ -6,7 +6,7 @@ db.serialize(() => {
         id INTEGER PRIMARY KEY,
         nome STRING,
         telefone STRING,
-        email STRING
+        email STRING NOT NULL UNIQUE COLLATE NOCASE
         )`);
 
 db.run(`PRAGMA foreign_keys = ON`);
