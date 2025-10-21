@@ -1,10 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const clienteRouter = require('./routes/ClienteRoutes.js');
-const barbeiroRouter = require('./routes/BarbeiroRoutes.js');
-const servicoRouter = require('./routes/ServicoRoutes.js');
-const AgendamentoRouter = require('./routes/AgendamentoRoutes.js');
+const clienteRouter = require('./servico-cliente/Routes/ClienteRoutes.js');
+const barbeiroRouter = require('./servico-barbeiro/routes/BarbeiroRoutes.js');
+const servicoRouter = require('./servico-servico/routes/ServicoRoutes.js');
+const AgendamentoRouter = require('./servico-agendamento/Routes/AgendamentoRoutes.js');
 const { z } = require('zod');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');

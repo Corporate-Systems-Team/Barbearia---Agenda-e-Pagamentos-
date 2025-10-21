@@ -1,15 +1,22 @@
 http:
-  port: 8080
+  port: 3000
 admin:
   port: 9876
   host: localhost
 apiEndpoints:
-  api:
+  clientes:
     host: localhost
-    paths: '/ip'
+    paths: '/clientes/*'
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
 serviceEndpoints:
+  clienteService:
+    url: 'http://localhost:3001'
   httpbin:
-    url: 'https://httpbin.org'
+    url: 'http://httpbin.org'
 policies:
   - basic-auth
   - cors
