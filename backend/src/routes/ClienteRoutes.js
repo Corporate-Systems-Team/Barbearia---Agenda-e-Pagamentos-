@@ -3,6 +3,8 @@
  * @swagger
  * /clientes:
  *   post:
+ *     tags:
+ *       - Clientes
  *     summary: Criar um novo cliente
  *     description: Cria um novo cliente com os dados fornecidos no corpo da requisição.
  *     requestBody:
@@ -62,6 +64,8 @@
  * @swagger
  * /clientes:
  *   get:
+ *     tags:
+ *       - Clientes
  *     summary: Listar todos os clientes
  *     description: Retorna todos os clientes cadastrados no sistema.
  *     responses:
@@ -97,6 +101,8 @@
  * @swagger
  * /clientes/{id}:
  *   get:
+ *     tags:
+ *       - Clientes
  *     summary: Buscar um cliente por ID
  *     description: Retorna os dados de um cliente específico baseado no ID fornecido.
  *     parameters:
@@ -139,6 +145,8 @@
  * @swagger
  * /clientes/{id}:
  *   put:
+ *     tags:
+ *       - Clientes
  *     summary: Atualizar os dados de um cliente
  *     description: Atualiza as informações de um cliente específico.
  *     parameters:
@@ -203,6 +211,8 @@
  * @swagger
  * /clientes/{id}:
  *   delete:
+ *     tags:
+ *       - Clientes
  *     summary: Deletar um cliente
  *     description: Deleta um cliente existente com base no ID fornecido.
  *     parameters:
@@ -228,6 +238,7 @@
  *       500:
  *         description: Erro interno do servidor
  */
+
 
 
 
