@@ -236,13 +236,16 @@ const {createCliente, readClientes, updateCliente, deleteCliente, readClienteByI
 const router = express.Router();
 const { validateSchema } = require('../middleware/validationMiddleware.ts');
 const {clienteSchema} = require('../schemas/ClienteSchema.ts');
+const logger = require('pino-http');
 
 router.post('/clientes', validateSchema(clienteSchema), (req,res) =>{
     const {nome,telefone,email,senha} = req.body;
     createCliente(nome,telefone,email,senha, (err,clientes) =>{
         if(err){
+            req.log.info('Erro 500');
             res.status(500).send(err.message);
         } else {
+            req.log.info('Servindo post clientes');
             res.status(200).json(clientes);
         }
     })
@@ -251,8 +254,10 @@ router.post('/clientes', validateSchema(clienteSchema), (req,res) =>{
 router.get('/clientes', (req, res) => {
     readClientes((err, clientes) => {
         if (err) {
+            req.log.info('Erro 500');
             res.status(500).send(err.message);
         } else {
+            req.log.info('Servindo get clientes');
             res.status(200).json(clientes);
         }
     });
@@ -264,8 +269,10 @@ router.put('/clientes/:id',validateSchema(clienteSchema), (req, res) => {
     const { nome, telefone, email, senha } = req.body;
     updateCliente(id, nome, telefone, email, senha, (err, result) => {
         if (err) {
+            req.log.info('Erro 500');
             res.status(500).send(err.message);
         } else {
+            req.log.info('Servindo put clientes');
             res.status(200).json(result);
         }
     });
@@ -274,8 +281,10 @@ router.delete('/clientes/:id', (req, res) => {
     const { id } = req.params;
     deleteCliente(id, (err, result) => {
         if (err) {
+            req.log.info('Erro 500');
             res.status(500).send(err.message);
         } else {
+            req.log.info('Servindo delete clientes');
             res.status(200).json(result);
         }
     });
@@ -284,10 +293,13 @@ router.get('/clientes/:id', (req, res) => {
     const { id } = req.params;
     readClienteById(id, (err, cliente) => {
         if (err) {
+            req.log.info('Erro 500');
             res.status(500).send(err.message);
         } else if (!cliente) {
+            req.log.info('Cliente não encontrado');
             res.status(404).send('Cliente não encontrado');
         } else {
+            req.log.info('Servindo get cliente por id');
             res.status(200).json(cliente);
         }   
     });
