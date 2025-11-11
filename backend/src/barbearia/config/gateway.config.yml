@@ -1,0 +1,109 @@
+http:
+  port: 3000
+admin:
+  port: 9876
+  host: localhost
+apiEndpoints:
+  clientes:
+    host: localhost
+    paths: '/clientes*'
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+  barbeiros:
+    host: localhost
+    paths: '/barbeiros*'
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+  servico:
+    host: localhost
+    paths: '/servico*'
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+  agendamento:
+    host: localhost
+    paths: '/agendamento*'
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+serviceEndpoints:
+  clientesService:
+    url: 'http://localhost:3001'
+  barbeiroService:
+    url: 'http://localhost:3002'
+  agendamentoService:
+    url: 'http://localhost:3004'
+  servicoService:
+    url: 'http://localhost:3003'
+  httpbin:
+    url: 'http://httpbin.org'
+policies:
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+pipelines:
+  default:
+    apiEndpoints:
+      - api
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: httpbin 
+              changeOrigin: true
+  clientes:
+    apiEndpoints:
+      - clientes
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: clientesService
+              changeOrigin: true
+  barbeiros:
+    apiEndpoints:
+      - barbeiros
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: barbeiroService
+              changeOrigin: true
+  servico:
+    apiEndpoints:
+      - servico
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: servicoService
+              changeOrigin: true
+  agendamento:
+    apiEndpoints:
+      - agendamento
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: agendamentoService
+              changeOrigin: true
