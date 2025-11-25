@@ -1,9 +1,10 @@
 // backend/src/main.ts
-
+import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'; 
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   // 1. Cria a aplicação NestJS 
@@ -30,6 +31,15 @@ async function bootstrap() {
   await app.listen(port);
   console.log(`Servidor rodando em http://localhost:${port}`);
   console.log(`Documentação disponível em http://localhost:${port}/api-docs`); 
+
+  
+
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    forbidNonWhitelisted: true,
+    transform: true,
+    transformOptions: { enableImplicitConversion: true },
+  }));
 }
 
 
